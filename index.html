@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Lista de Reproducción</title>
     <style>
-        /* Estilo para el cuerpo */
         body {
             background-image: url('https://st2.depositphotos.com/1054749/7007/i/450/depositphotos_70073867-stock-photo-clear-orange-and-blue-sunset.jpg');
             background-size: cover; 
@@ -43,7 +42,7 @@
 <body>
     <h1>Mi Lista de Reproducción de Videos</h1>
     <video id="videoPlayer" width="640" height="360" controls autoplay>
-        <source src="https://www.dropbox.com/scl/fi/8vukwy2m94bt4078vlis3/Miley-Cyrus-Live-from-Whisky-a-Go-Go-Zombie-SOSFEST.mp4?rlkey=x6fwhwjpdwprfc8ub27drzno4&st=m4g037gc&raw=1" type="video/mp4">
+        <source id="videoSource" src="https://www.dropbox.com/scl/fi/8vukwy2m94bt4078vlis3/Miley-Cyrus-Live-from-Whisky-a-Go-Go-Zombie-SOSFEST.mp4?rlkey=x6fwhwjpdwprfc8ub27drzno4&st=m4g037gc&raw=1" type="video/mp4">
         Tu navegador no soporta video.
     </video>
     
@@ -54,6 +53,7 @@
 
     <script>
         const videoPlayer = document.getElementById('videoPlayer');
+        const videoSource = document.getElementById('videoSource');
         const prevButton = document.getElementById('prevButton');
         const nextButton = document.getElementById('nextButton');
 
@@ -108,7 +108,7 @@
         
 
 
-                ];
+                         ];
 
         let currentVideo = 0;
 
