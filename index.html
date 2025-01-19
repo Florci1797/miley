@@ -18,7 +18,7 @@
             height: 100vh; 
             margin: 0; 
         }
-        h1 {
+        h1, h2, h3 {
             text-align: center;          
             margin-bottom: 20px;        
         }
@@ -56,7 +56,7 @@
 <body>
     <h1>Mi Lista de Reproducción de Videos</h1>
     <video id="videoPlayer" width="640" height="360" controls autoplay>
-        <source id="videoSource" src="https://www.dropbox.com/scl/fi/8vukwy2m94bt4078vlis3/Miley-Cyrus-Live-from-Whisky-a-Go-Go-Zombie-SOSFEST.mp4?rlkey=x6fwhwjpdwprfc8ub27drzno4&st=m4g037gc&raw=1" type="video/mp4">
+        <source id="videoSource" src="" type="video/mp4">
         Tu navegador no soporta video.
     </video>
     
@@ -64,6 +64,8 @@
         <button id="prevButton">Atrás</button>
         <button id="nextButton">Siguiente</button>
     </div>
+
+    <h3 id="currentSong">Título de la canción</h3>
 
     <div class="song-list">
         <h2>Índice de Canciones</h2>
@@ -80,88 +82,96 @@
             <strong>Never be me:</strong> La mejor versión de esta canción y en Argentina.
         </div>
 
-    
         <!-- Puedes agregar más canciones y descripciones aquí -->
     </div>
 
     <script>
         const videoPlayer = document.getElementById('videoPlayer');
         const videoSource = document.getElementById('videoSource');
+        const currentSong = document.getElementById('currentSong');
         const prevButton = document.getElementById('prevButton');
         const nextButton = document.getElementById('nextButton');
 
         const videos = [
-                'https://www.dropbox.com/scl/fi/8vukwy2m94bt4078vlis3/Miley-Cyrus-Live-from-Whisky-a-Go-Go-Zombie-SOSFEST.mp4?rlkey=x6fwhwjpdwprfc8ub27drzno4&st=m4g037gc&raw=1',
-                'https://www.dropbox.com/scl/fi/b05e62oy58jklvbue5o4k/You-live-on-Miley-s-New-Year-s-Eve-Party-Hosted-by-Miley-Cyrus-Pete-Davidson-on-NBC.mp4?rlkey=rzriizuinbyv53240z4bzij2c&st=spn0w8hb&raw=1',
-                'https://www.dropbox.com/scl/fi/vrhry47zwv3qm78a6jhlt/Miley-Cyrus-I-ll-Take-Care-Of-You-AUDIO-HQ.mp4?rlkey=a5oauuu25786a3eih2x2humqk&st=87cv6ohl&raw=1',
-                'https://www.dropbox.com/scl/fi/gnfjdjinqws0sthfdu56h/Miley-Cyrus-Never-Be-Me-Live-at-Lollapalooza-Argentina-2022.mp4?rlkey=5qgjba96zo8vmdvu8os70pt0n&st=d3cyny8s&raw=1',
-                'https://www.dropbox.com/scl/fi/uqjfd0x60ismygvvoaz5q/Miley-Cyrus-Plastic-Hearts-Backyard-Sessions.mp4?rlkey=uts84wdc4n2kcc9vl99qjv79h&st=vk243div&raw=1',
-                'https://www.dropbox.com/scl/fi/9q67qrugm78atqoyq489m/Miley-Cyrus-Billy-Joel-New-York-State-of-Mind-Live-at-Madison-Square-Garden.mp4?rlkey=jciyf3ghqsorfr283le9nxc04&st=mvn8pii8&raw=1',
-                'https://www.dropbox.com/scl/fi/bxkml6hwwaptgb7bbxar3/Miley-Cyrus-FU-Do-My-Thang-Bangerz-Tour.mp4?rlkey=polf7u7p4d9u4btg7tyzwndo8&st=iw3ekmyu&raw=1',
-                'https://www.dropbox.com/scl/fi/iz8t2ekryh50l2ir04th5/Miley-Cyrus-Performs-Why-d-You-Only-Call-Me-When-You-re-High-Miley-Cyrus-Unplugged.mp4?rlkey=pvukokejp90gy4eix0q128349&st=zi9vqs6s&raw=1',
-                'https://www.dropbox.com/scl/fi/08gtg9ojtgtbt3obp4zx9/Miley-Cyrus-4X4-Lollapalooza-Brasil-2022.mp4?rlkey=yhwjmx8uwu4ig1myydjb558ji&st=272xx2vg&raw=1',
-                'https://www.dropbox.com/scl/fi/7swntpgughv2x4pnhfkzi/Miley-Cyrus-Maybe-Live-from-ACL-Festival.mp4?rlkey=w7nb00gml02e62x3p9tjt20a5&st=ixz3be8o&raw=1',
-                'https://www.dropbox.com/scl/fi/kfg62g26omknavwprei0c/Miley-Cyrus-Dooo-it-x-23-Lollapalooza-2022-argentina.mp4?rlkey=og349e7f3mfrzklnjmedn46nw&raw=1',
-                'https://www.dropbox.com/scl/fi/2mhcm07e5huyuhzhckr68/Miley-Cyrus-Wonder-Woman-Endless-Summer-Vacation-Backyard-Sessions.mp4?rlkey=9lzi4la9v6is77xmtaf14wicd&st=wysn1nq4&raw=1',
-                'https://www.dropbox.com/scl/fi/dj6dndgxj9l4dcgm8ca69/Miley-Cyrus-Summertime-Sadness-Lana-Del-Rey-Cover.mp4?rlkey=96dd7bzde3l1vpa3laoi5aq4u&st=36gb2poh&raw=1',
-                'https://www.dropbox.com/scl/fi/euqvqx9rslmy8d353zpux/Miley-Cyrus-Wildcard-Endless-Summer-Vacation-Backyard-Sessions.mp4?rlkey=w6724pg92xlkoxky9hobk7eye&st=prsvrdm8&raw=1',
-                'https://www.dropbox.com/scl/fi/kl4cixb0hr6t25618j5tw/Miley-Cyrus-Where-is-my-Mind-We-Cant-Stop-x-Where-Is-My-Mind-MASHUP.mp4?rlkey=o2k8eci511831f8qrnur2bm87&st=ibo3c4tz&raw=1',
-                'https://www.dropbox.com/scl/fi/km4e6ezw6661bkkpf7z6b/Miley-Cyrus-Midnight-Sky-in-the-Live-Lounge.mp4?rlkey=glgxim0jmeiez0jaspisqvfy0&st=ftdoot55&raw=1',
-                'https://www.dropbox.com/scl/fi/gzka04s4hw49bmo6stsci/Miley-Cyrus-Gimme-What-I-Want-Live-from-Miley-In-Layers.mp4?rlkey=ml01djdq3c8p6gekcp0yci7pf&st=0j4500ga&raw=1',
-                'https://www.dropbox.com/scl/fi/6o23rcr85yva1k74v9m51/Miley-Cyrus-7-Things-Live-in-Los-Angeles-2-12-22.mp4?rlkey=l5pvs1befkzuhjeah7jcjir1t&st=pz4epghr&raw=1',
-                'https://www.dropbox.com/scl/fi/4jbpxnja1qjnnw2x0wlq4/Miley-Cyrus-Bang-Bang-x-See-You-Again-Lollapalooza-2022-Argentina.mp4?rlkey=yae97b2ww8rtdwi7s90h0or99&st=83ccwuwh&raw=1',
-                'https://www.dropbox.com/scl/fi/ujrz2a7i0wtz0uolikyci/Miley-Cyrus-Joan-Jett-Live-at-the-SuperBowl-TiktokTailgate.mp4?rlkey=34po0u9p5314o4vns00fad9gh&st=ph6b2i8e&raw=1',
-                'https://www.dropbox.com/scl/fi/5n3sgoigw9ola1jnofg0q/Miley-Cyrus-Happy-Hippie-Presents-Miley-Cyrus-Happy-Together.mp4?rlkey=u8oyax56bthy2amqvbah6za21&st=dw11cbgp&raw=1',
-                'https://www.dropbox.com/scl/fi/mmze9aa5yn8jqaudzv6s3/Miley-Cyrus-Angels-Like-You-Live-at-the-SuperBowl-TiktokTailgate.mp4?rlkey=k19ifz1d6nd1f44ppuoyxid6d&st=iqgwa9sd&raw=1',
-                'https://www.dropbox.com/scl/fi/6qojnbwmrrcizyhm4nbli/Mark-Ronson-Miley-Cyrus-No-Tears-Left-to-Cry-Ariana-Grande-Cover-in-the-Live-Lounge.mp4?rlkey=zb3w9hwbkx3x31uzviwtkqhw1&raw=1',
-                'https://www.dropbox.com/scl/fi/v8da76rnwrmtpasthcdcf/Metallica-Miley-Cyrus-Nothing-Else-Matters-en-SiriusXM.mp4?rlkey=zaadzr37ksgswmyb6gpbbom0b&st=jutxgiqp&raw=1',
-                'https://www.dropbox.com/scl/fi/b5xd41z2fclrzll4yr0tb/Miley-Cyrus-Communication-MTV-Unplugged-Presents-Miley-Cyrus-Backyard-Sessions.mp4?rlkey=sx8i8eo5m09bll9cca0t2r9lq&st=dfhnfvh0&raw=1',
-                'https://www.dropbox.com/scl/fi/049p9htlihi22hgtqr45y/Miley-Cyrus-Fade-Into-You-Mazzy-Star-Cover.mp4?rlkey=inurpfas7abrmtqh9acel44vo&st=tnj22m4s&raw=1',
-                'https://www.dropbox.com/scl/fi/658bzdst6prx8ud1rxqi5/Miley-Cyrus-Happy-Hippie-Presents-Miley-Cyrus-No-Freedom.mp4?rlkey=y0czy3r64qzpv7mflixklg57z&st=66e3tu09&raw=1',
-                'https://www.dropbox.com/scl/fi/9vo48osn730jf7j5talu1/Miley-Cyrus-Heart-Of-Glass-Live-from-the-iHeart-Festival.mp4?rlkey=i5hui5k3ed3r1w68m8lw8wpwy&st=n6b2r6db&raw=1',
-                'https://www.dropbox.com/scl/fi/zk3owq8u6ta569zf5erxy/Miley-Cyrus-Jaded-Backyard-Sessions.mp4?rlkey=0x2khq9hs3l795iih7djdml8u&st=wa64yuj3&raw=1',
-                'https://www.dropbox.com/scl/fi/5z538e1ucy41qmgwels25/Mark-Ronson-Nothing-Breaks-Like-A-Heart-in-the-Live-Lounge-ft.-Miley-Cyrus.mp4?rlkey=sm0jspjb08q8x0k8rnnlim8zg&st=myb55zof&raw=1',
-                'https://www.dropbox.com/scl/fi/k7buetbgazvzng88rdaqy/Miley-Cyrus-my-future-Billie-Eilish-cover-in-the-Live-Lounge.mp4?rlkey=k0ybn2zu4k3dt2ln11liv1pxa&st=l5d3dv83&raw=1',
-                'https://www.dropbox.com/scl/fi/0ws9ruxuu4nsatsbu6p6a/Miley-Cyrus-River-Backyard-Sessions.mp4?rlkey=s4itbm805ua1am5c1g7y9d1xz&st=ohxo49tb&raw=1',
-                'https://www.dropbox.com/scl/fi/i8m3npumz1l8s3ddciv5h/Miley-Cyrus-Slide-Away-in-the-Live-Lounge.mp4?rlkey=euwwn9ki4psw0b2iehqecg13x&st=e817anod&raw=1',
-                'https://www.dropbox.com/scl/fi/vi2jcqf5w6c8dzhvy3a3k/Miley-Cyrus-The-Backyard-Sessions-Lilac-Wine.mp4?rlkey=msxk1cwqi4ymcb736gplkkfgh&st=bftl6xhq&raw=1',
-                'https://www.dropbox.com/scl/fi/euh0mnwewv4yf5k9zffcj/Miley-Cyrus-The-Backyard-Sessions-Look-What-They-ve-Done-To-My-Song.mp4?rlkey=dbhy9sl03x0pxgn19um58zbsg&st=a2zige0l&raw=1',
-                'https://www.dropbox.com/scl/fi/yp94n09o3h9lmm9jgit9r/Miley-Cyrus-50-ways-to-leave-your-lover-SNL.mp4?rlkey=ceyrlaxst24jg1lm35n6sgk1v&st=6e8c05t0&raw=1',
-                'https://www.dropbox.com/scl/fi/9b2omdbwzge12znrgorvx/Miley-Cyrus-Who-Owns-My-Heart-Live-From-the-iHeart-Music-Festival-Japan-Bonus-Track.mp4?rlkey=bwxikozy9c1akqtn75ywkja7e&st=872fbeks&raw=1',
-                'https://www.dropbox.com/scl/fi/unbv5oaz0u1q8hws20foi/Miley-Cyrus-WTF-Do-I-Know-From-ATTENTION-MILEY-LIVE.mp4?rlkey=05xl5murfdfldtgv522ja8xfp&st=qg5lbwc4&raw=1',
-                'https://www.dropbox.com/scl/fi/vr13uqjqxvyvwfuvj5qwv/Miley-Cyrus-Covers-Doll-Parts-on-the-Howard-Stern-Show.mp4?rlkey=ggsw4xz2o30go8dn0sxf06aa2&st=4uq1rj3j&raw=1',
-                'https://www.dropbox.com/scl/fi/rfh0nlyiwhi0pfk4ll64s/Miley-Cyrus-ft.-Noah-Cyrus-Perform-I-Got-So-High-That-I-Saw-Jesus-Miley-Cyrus-Backyard-Sessions.mp4?rlkey=9tao7toqqdz8iud49tsphc8uh&st=4bd24wmk&raw=1',
-                'https://www.dropbox.com/scl/fi/v330zvta6hi82dig2oiw8/Miley-Cyrus-Mother-s-Daughter-Live-in-Lollapalooza-Argentina-2022.mp4?rlkey=loy9mf8jc9rwhjzuk79mc3ewk&st=zfebc4gl&raw=1',
-                'https://www.dropbox.com/scl/fi/w37zrn0i6jno3okvpp80s/Miley-Cyrus-Karen-Don-t-Be-Sad-Live-from-SNL.mp4?rlkey=vpluw2okif6gpsacgd3k8nc89&st=9zo2jw19&raw=1',
-                'https://www.dropbox.com/scl/fi/5s02dz9q7ofcldgybix8s/Miley-Cyrus-Believe.mp4?rlkey=k2ywjf27a4qws3051448njlr3&st=r00qpy6w&raw=1',
-                'https://www.dropbox.com/scl/fi/vafpzcneok8dtrfc2dhpz/Miley-Cyrus-Maneater-Hall-Oates-Cover-on-The-Tonight-Show.mp4?rlkey=vhsol6qprqz02q1rkxeuevd4g&st=jreg2cxt&raw=1',
-                'https://www.dropbox.com/scl/fi/ig53nndv4p505kuzfr21n/Miley-Cyrus-Performs-Hands-of-Love-with-Linda-Perry.mp4?rlkey=avycym1qxeaj7kdg41uvkoyeg&st=rwg1igpo&raw=1',
-                'https://www.dropbox.com/scl/fi/q91yi2nyjvm73qeqxy2qf/Miley-Cyrus-Flowers-Backyard-Sessions.mp4?rlkey=xmtc93amhxgl6alon9p9xug8a&st=h7y47cr8&raw=1',
-                'https://www.dropbox.com/scl/fi/i47dw7gbo2z5n4uzhkzkb/Miley-Cyrus-Closes-The-Tonight-Show-with-The-Climb.mp4?rlkey=x9n2zrseqjms24xmmkpc2ck2l&st=qxiea105&raw=1'
+                'https://www.dropbox.com/scl/fi/8vukwy2m94bt4078vlis3/Miley-Cyrus-Live-from-Whisky-a-Go-Go-Zombie-SOSFEST.mp4?rlkey=x6fwhwjpdwprfc8ub27drzno4&st=m4g037gc&raw=1', name: 'Zombie' },
+                'https://www.dropbox.com/scl/fi/b05e62oy58jklvbue5o4k/You-live-on-Miley-s-New-Year-s-Eve-Party-Hosted-by-Miley-Cyrus-Pete-Davidson-on-NBC.mp4?rlkey=rzriizuinbyv53240z4bzij2c&st=spn0w8hb&raw=1', name: 'You' },
+                'https://www.dropbox.com/scl/fi/vrhry47zwv3qm78a6jhlt/Miley-Cyrus-I-ll-Take-Care-Of-You-AUDIO-HQ.mp4?rlkey=a5oauuu25786a3eih2x2humqk&st=87cv6ohl&raw=1', name: 'I´ll take care of you' },
+                'https://www.dropbox.com/scl/fi/gnfjdjinqws0sthfdu56h/Miley-Cyrus-Never-Be-Me-Live-at-Lollapalooza-Argentina-2022.mp4?rlkey=5qgjba96zo8vmdvu8os70pt0n&st=d3cyny8s&raw=1', name: 'Never be me' },
+                'https://www.dropbox.com/scl/fi/uqjfd0x60ismygvvoaz5q/Miley-Cyrus-Plastic-Hearts-Backyard-Sessions.mp4?rlkey=uts84wdc4n2kcc9vl99qjv79h&st=vk243div&raw=1', name: 'Plastic Hearts' },
+                'https://www.dropbox.com/scl/fi/9q67qrugm78atqoyq489m/Miley-Cyrus-Billy-Joel-New-York-State-of-Mind-Live-at-Madison-Square-Garden.mp4?rlkey=jciyf3ghqsorfr283le9nxc04&st=mvn8pii8&raw=1', name: 'New York State of Mind' },
+                'https://www.dropbox.com/scl/fi/bxkml6hwwaptgb7bbxar3/Miley-Cyrus-FU-Do-My-Thang-Bangerz-Tour.mp4?rlkey=polf7u7p4d9u4btg7tyzwndo8&st=iw3ekmyu&raw=1', name: 'Fu + Do my thang' },
+                'https://www.dropbox.com/scl/fi/iz8t2ekryh50l2ir04th5/Miley-Cyrus-Performs-Why-d-You-Only-Call-Me-When-You-re-High-Miley-Cyrus-Unplugged.mp4?rlkey=pvukokejp90gy4eix0q128349&st=zi9vqs6s&raw=1', name: 'why ́d you only call me when you ́re high?' },
+                'https://www.dropbox.com/scl/fi/08gtg9ojtgtbt3obp4zx9/Miley-Cyrus-4X4-Lollapalooza-Brasil-2022.mp4?rlkey=yhwjmx8uwu4ig1myydjb558ji&st=272xx2vg&raw=1', name: '4x4' },
+                'https://www.dropbox.com/scl/fi/7swntpgughv2x4pnhfkzi/Miley-Cyrus-Maybe-Live-from-ACL-Festival.mp4?rlkey=w7nb00gml02e62x3p9tjt20a5&st=ixz3be8o&raw=1', name: 'Maybe' },
+                'https://www.dropbox.com/scl/fi/kfg62g26omknavwprei0c/Miley-Cyrus-Dooo-it-x-23-Lollapalooza-2022-argentina.mp4?rlkey=og349e7f3mfrzklnjmedn46nw&raw=1', name: 'Dooo It + 23' },
+                'https://www.dropbox.com/scl/fi/2mhcm07e5huyuhzhckr68/Miley-Cyrus-Wonder-Woman-Endless-Summer-Vacation-Backyard-Sessions.mp4?rlkey=9lzi4la9v6is77xmtaf14wicd&st=wysn1nq4&raw=1', name: 'Wonder Woman' },
+                'https://www.dropbox.com/scl/fi/dj6dndgxj9l4dcgm8ca69/Miley-Cyrus-Summertime-Sadness-Lana-Del-Rey-Cover.mp4?rlkey=96dd7bzde3l1vpa3laoi5aq4u&st=36gb2poh&raw=1', name: 'Summertime Sadness' },
+                'https://www.dropbox.com/scl/fi/euqvqx9rslmy8d353zpux/Miley-Cyrus-Wildcard-Endless-Summer-Vacation-Backyard-Sessions.mp4?rlkey=w6724pg92xlkoxky9hobk7eye&st=prsvrdm8&raw=1', name: 'Wildcard' },
+                'https://www.dropbox.com/scl/fi/kl4cixb0hr6t25618j5tw/Miley-Cyrus-Where-is-my-Mind-We-Cant-Stop-x-Where-Is-My-Mind-MASHUP.mp4?rlkey=o2k8eci511831f8qrnur2bm87&st=ibo3c4tz&raw=1', name: 'We can´t stop + Where is my mind' },
+                'https://www.dropbox.com/scl/fi/km4e6ezw6661bkkpf7z6b/Miley-Cyrus-Midnight-Sky-in-the-Live-Lounge.mp4?rlkey=glgxim0jmeiez0jaspisqvfy0&st=ftdoot55&raw=1', name: 'Midnight Sky' },
+                'https://www.dropbox.com/scl/fi/gzka04s4hw49bmo6stsci/Miley-Cyrus-Gimme-What-I-Want-Live-from-Miley-In-Layers.mp4?rlkey=ml01djdq3c8p6gekcp0yci7pf&st=0j4500ga&raw=1', name: 'Gimme what I want' },
+                'https://www.dropbox.com/scl/fi/6o23rcr85yva1k74v9m51/Miley-Cyrus-7-Things-Live-in-Los-Angeles-2-12-22.mp4?rlkey=l5pvs1befkzuhjeah7jcjir1t&st=pz4epghr&raw=1', name: '7 things' },
+                'https://www.dropbox.com/scl/fi/4jbpxnja1qjnnw2x0wlq4/Miley-Cyrus-Bang-Bang-x-See-You-Again-Lollapalooza-2022-Argentina.mp4?rlkey=yae97b2ww8rtdwi7s90h0or99&st=83ccwuwh&raw=1', name: 'Bang Bang + See you again' },
+                'https://www.dropbox.com/scl/fi/ujrz2a7i0wtz0uolikyci/Miley-Cyrus-Joan-Jett-Live-at-the-SuperBowl-TiktokTailgate.mp4?rlkey=34po0u9p5314o4vns00fad9gh&st=ph6b2i8e&raw=1', name: 'Miley + Joan Jett' },
+                'https://www.dropbox.com/scl/fi/5n3sgoigw9ola1jnofg0q/Miley-Cyrus-Happy-Hippie-Presents-Miley-Cyrus-Happy-Together.mp4?rlkey=u8oyax56bthy2amqvbah6za21&st=dw11cbgp&raw=1', name: 'Happy Together' },
+                'https://www.dropbox.com/scl/fi/mmze9aa5yn8jqaudzv6s3/Miley-Cyrus-Angels-Like-You-Live-at-the-SuperBowl-TiktokTailgate.mp4?rlkey=k19ifz1d6nd1f44ppuoyxid6d&st=iqgwa9sd&raw=1', name: 'Angels like you' },
+                'https://www.dropbox.com/scl/fi/6qojnbwmrrcizyhm4nbli/Mark-Ronson-Miley-Cyrus-No-Tears-Left-to-Cry-Ariana-Grande-Cover-in-the-Live-Lounge.mp4?rlkey=zb3w9hwbkx3x31uzviwtkqhw1&raw=1', name: 'No tears left to cry' },
+                'https://www.dropbox.com/scl/fi/v8da76rnwrmtpasthcdcf/Metallica-Miley-Cyrus-Nothing-Else-Matters-en-SiriusXM.mp4?rlkey=zaadzr37ksgswmyb6gpbbom0b&st=jutxgiqp&raw=1', name: 'Nothing else matters' },
+                'https://www.dropbox.com/scl/fi/b5xd41z2fclrzll4yr0tb/Miley-Cyrus-Communication-MTV-Unplugged-Presents-Miley-Cyrus-Backyard-Sessions.mp4?rlkey=sx8i8eo5m09bll9cca0t2r9lq&st=dfhnfvh0&raw=1', name: 'Communication' },
+                'https://www.dropbox.com/scl/fi/049p9htlihi22hgtqr45y/Miley-Cyrus-Fade-Into-You-Mazzy-Star-Cover.mp4?rlkey=inurpfas7abrmtqh9acel44vo&st=tnj22m4s&raw=1', name: 'Fade into you' },
+                'https://www.dropbox.com/scl/fi/658bzdst6prx8ud1rxqi5/Miley-Cyrus-Happy-Hippie-Presents-Miley-Cyrus-No-Freedom.mp4?rlkey=y0czy3r64qzpv7mflixklg57z&st=66e3tu09&raw=1', name: 'No Freedom' },
+                'https://www.dropbox.com/scl/fi/9vo48osn730jf7j5talu1/Miley-Cyrus-Heart-Of-Glass-Live-from-the-iHeart-Festival.mp4?rlkey=i5hui5k3ed3r1w68m8lw8wpwy&st=n6b2r6db&raw=1', name: 'Heart of glass' },
+                'https://www.dropbox.com/scl/fi/zk3owq8u6ta569zf5erxy/Miley-Cyrus-Jaded-Backyard-Sessions.mp4?rlkey=0x2khq9hs3l795iih7djdml8u&st=wa64yuj3&raw=1', name: 'Jaded' },
+                'https://www.dropbox.com/scl/fi/5z538e1ucy41qmgwels25/Mark-Ronson-Nothing-Breaks-Like-A-Heart-in-the-Live-Lounge-ft.-Miley-Cyrus.mp4?rlkey=sm0jspjb08q8x0k8rnnlim8zg&st=myb55zof&raw=1', name: 'Nothing breaks like a heart' },
+                'https://www.dropbox.com/scl/fi/k7buetbgazvzng88rdaqy/Miley-Cyrus-my-future-Billie-Eilish-cover-in-the-Live-Lounge.mp4?rlkey=k0ybn2zu4k3dt2ln11liv1pxa&st=l5d3dv83&raw=1', name: 'My future' },
+                'https://www.dropbox.com/scl/fi/0ws9ruxuu4nsatsbu6p6a/Miley-Cyrus-River-Backyard-Sessions.mp4?rlkey=s4itbm805ua1am5c1g7y9d1xz&st=ohxo49tb&raw=1', name: 'River' },
+                'https://www.dropbox.com/scl/fi/i8m3npumz1l8s3ddciv5h/Miley-Cyrus-Slide-Away-in-the-Live-Lounge.mp4?rlkey=euwwn9ki4psw0b2iehqecg13x&st=e817anod&raw=1', name: 'Slide Away' },
+                'https://www.dropbox.com/scl/fi/vi2jcqf5w6c8dzhvy3a3k/Miley-Cyrus-The-Backyard-Sessions-Lilac-Wine.mp4?rlkey=msxk1cwqi4ymcb736gplkkfgh&st=bftl6xhq&raw=1', name: 'Lilac Wine' },
+                'https://www.dropbox.com/scl/fi/euh0mnwewv4yf5k9zffcj/Miley-Cyrus-The-Backyard-Sessions-Look-What-They-ve-Done-To-My-Song.mp4?rlkey=dbhy9sl03x0pxgn19um58zbsg&st=a2zige0l&raw=1', name: 'Look what they´ve done to my song' },
+                'https://www.dropbox.com/scl/fi/yp94n09o3h9lmm9jgit9r/Miley-Cyrus-50-ways-to-leave-your-lover-SNL.mp4?rlkey=ceyrlaxst24jg1lm35n6sgk1v&st=6e8c05t0&raw=1', name: '50 ways to leave your lover' },
+                'https://www.dropbox.com/scl/fi/9b2omdbwzge12znrgorvx/Miley-Cyrus-Who-Owns-My-Heart-Live-From-the-iHeart-Music-Festival-Japan-Bonus-Track.mp4?rlkey=bwxikozy9c1akqtn75ywkja7e&st=872fbeks&raw=1', name: 'Who owns my heart' },
+                'https://www.dropbox.com/scl/fi/unbv5oaz0u1q8hws20foi/Miley-Cyrus-WTF-Do-I-Know-From-ATTENTION-MILEY-LIVE.mp4?rlkey=05xl5murfdfldtgv522ja8xfp&st=qg5lbwc4&raw=1', name: 'WTF DO I KNOW' },
+                'https://www.dropbox.com/scl/fi/vr13uqjqxvyvwfuvj5qwv/Miley-Cyrus-Covers-Doll-Parts-on-the-Howard-Stern-Show.mp4?rlkey=ggsw4xz2o30go8dn0sxf06aa2&st=4uq1rj3j&raw=1', name: 'Doll parts' },
+                'https://www.dropbox.com/scl/fi/rfh0nlyiwhi0pfk4ll64s/Miley-Cyrus-ft.-Noah-Cyrus-Perform-I-Got-So-High-That-I-Saw-Jesus-Miley-Cyrus-Backyard-Sessions.mp4?rlkey=9tao7toqqdz8iud49tsphc8uh&st=4bd24wmk&raw=1', name: 'I got so high that i saw Jesus' },
+                'https://www.dropbox.com/scl/fi/v330zvta6hi82dig2oiw8/Miley-Cyrus-Mother-s-Daughter-Live-in-Lollapalooza-Argentina-2022.mp4?rlkey=loy9mf8jc9rwhjzuk79mc3ewk&st=zfebc4gl&raw=1', name: 'Mother´s Daughter' },
+                'https://www.dropbox.com/scl/fi/w37zrn0i6jno3okvpp80s/Miley-Cyrus-Karen-Don-t-Be-Sad-Live-from-SNL.mp4?rlkey=vpluw2okif6gpsacgd3k8nc89&st=9zo2jw19&raw=1', name: 'Karen don´t be sad' },
+                'https://www.dropbox.com/scl/fi/5s02dz9q7ofcldgybix8s/Miley-Cyrus-Believe.mp4?rlkey=k2ywjf27a4qws3051448njlr3&st=r00qpy6w&raw=1', name: 'Believe' },
+                'https://www.dropbox.com/scl/fi/vafpzcneok8dtrfc2dhpz/Miley-Cyrus-Maneater-Hall-Oates-Cover-on-The-Tonight-Show.mp4?rlkey=vhsol6qprqz02q1rkxeuevd4g&st=jreg2cxt&raw=1', name: 'Maneater' },
+                'https://www.dropbox.com/scl/fi/ig53nndv4p505kuzfr21n/Miley-Cyrus-Performs-Hands-of-Love-with-Linda-Perry.mp4?rlkey=avycym1qxeaj7kdg41uvkoyeg&st=rwg1igpo&raw=1', name: 'Hands of love' },
+                'https://www.dropbox.com/scl/fi/q91yi2nyjvm73qeqxy2qf/Miley-Cyrus-Flowers-Backyard-Sessions.mp4?rlkey=xmtc93amhxgl6alon9p9xug8a&st=h7y47cr8&raw=1', name: 'Flowers' },
+                'https://www.dropbox.com/scl/fi/i47dw7gbo2z5n4uzhkzkb/Miley-Cyrus-Closes-The-Tonight-Show-with-The-Climb.mp4?rlkey=x9n2zrseqjms24xmmkpc2ck2l&st=qxiea105&raw=1', name: 'The Climb' }
         
-
-
-                         ];
+     ];
 
         let currentVideo = 0;
 
+        // Cargar el primer video y su nombre
+        function loadVideo() {
+            videoSource.src = videos[currentVideo].url;
+            currentSong.textContent = videos[currentVideo].name;
+            videoPlayer.load();
+        }
+
+        // Cambiar el video cuando termine
         videoPlayer.onended = function() {
             currentVideo = (currentVideo + 1) % videos.length;
-            videoPlayer.src = videos[currentVideo];
-            videoPlayer.play();
+            loadVideo();
         };
 
+        // Cambiar al video anterior
         prevButton.addEventListener('click', function() {
             currentVideo = (currentVideo - 1 + videos.length) % videos.length; // Cambia al video anterior
-            videoPlayer.src = videos[currentVideo];
-            videoPlayer.play();
+            loadVideo();
         });
 
+        // Cambiar al siguiente video
         nextButton.addEventListener('click', function() {
             currentVideo = (currentVideo + 1) % videos.length; // Cambia al siguiente video
-            videoPlayer.src = videos[currentVideo];
-            videoPlayer.play();
+            loadVideo();
         });
+
+        // Cargar el primer video al iniciar
+        loadVideo();
     </script>
 </body>
 </html>
