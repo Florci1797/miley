@@ -119,28 +119,34 @@
 
                            ];
 
-    let currentVideo = 0;
+        const descriptions = [
+            'Zombie: Amo esta canción y me encanta la versión que hizo, cuando salió no paré de escucharla por semanas.',
+            'You: Es muy tierna, siempre me llega al ♡.',
+            // Agrega más descripciones correspondientes a los videos
+        ];
 
-    function updateVideo() {
-        videoPlayer.src = videos[currentVideo]; // Cambia la fuente del video
-        videoPlayer.play(); // Reproduce el video
-        videoDescription.textContent = descriptions[currentVideo]; // Actualiza la descripción
-    }
+        let currentVideo = 0;
+
+        function updateVideo() {
+            videoPlayer.src = videos[currentVideo]; // Cambia la fuente del video
+            videoPlayer.play(); // Reproduce el video
+            videoDescription.textContent = descriptions[currentVideo]; // Actualiza la descripción
+        }
 
     videoPlayer.onended = function() {
-        currentVideo = (currentVideo + 1) % videos.length; // Cambia al siguiente video
-        updateVideo(); // Actualiza el video y la descripción
-    };
+    currentVideo = (currentVideo + 1) % videos.length; // Cambia al siguiente video
+    updateVideo(); // Actualiza el video y la descripción
+};
 
-    prevButton.addEventListener('click', function() {
-        currentVideo = (currentVideo - 1 + videos.length) % videos.length; // Cambia al video anterior
-        updateVideo(); // Actualiza el video y la descripción
-    });
+prevButton.addEventListener('click', function() {
+    currentVideo = (currentVideo - 1 + videos.length) % videos.length; // Cambia al video anterior
+    updateVideo(); // Actualiza el video y la descripción
+});
 
-    nextButton.addEventListener('click', function() {
-        currentVideo = (currentVideo + 1) % videos.length; // Cambia al siguiente video
-        updateVideo(); // Actualiza el video y la descripción
-    });
+nextButton.addEventListener('click', function() {
+    currentVideo = (currentVideo + 1) % videos.length; // Cambia al siguiente video
+    updateVideo(); // Actualiza el video y la descripción
+});
 
     // Inicializa la descripción para el primer video
     updateVideo();
