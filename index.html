@@ -12,19 +12,40 @@
         Tu navegador no soporta video.
     </video>
 
+    <div>
+        <button id="prevButton">Atrás</button>  <!-- Botón atrás -->
+        <button id="nextButton">Siguiente</button> <!-- Botón siguiente -->
+    </div>
+
     <script>
         const videoPlayer = document.getElementById('videoPlayer');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
         const videos = [
             'https://www.dropbox.com/scl/fi/kfg62g26omknavwprei0c/Miley-Cyrus-Dooo-it-x-23-Lollapalooza-2022-argentina.mp4?rlkey=og349e7f3mfrzklnjmedn46nw&st=gilxpiwb&raw=1',
             'https://www.dropbox.com/scl/fi/gzow88v7cn1kblnqqtamq/Mark-Ronson-Miley-Cyrus-No-Tears-Left-To-Cry-Ariana-Grande-cover-in-the-Live-Lounge.mp4?rlkey=zfkdktmbj3bl8dy9jdd36n5n1&st=33llfo9y&raw=1',
             'https://www.dropbox.com/scl/fi/4jbpxnja1qjnnw2x0wlq4/Miley-Cyrus-Bang-Bang-x-See-You-Again-Lollapalooza-2022-Argentina.mp4?raw=1'
         ];
-        let currentVideo = 0;
+        let currentVideo = 0; // Mantiene el índice del video actual
 
         videoPlayer.onended = function() {
             currentVideo = (currentVideo + 1) % videos.length; // Aumenta el índice y utiliza el resto para reiniciar
             videoPlayer.src = videos[currentVideo]; // Cambia la fuente al siguiente video
             videoPlayer.play(); // Inicia la reproducción automáticamente
+        };
+
+        // Funcionalidad del botón "Siguiente"
+        nextButton.onclick = function() {
+            currentVideo = (currentVideo + 1) % videos.length; // Cambia al siguiente video
+            videoPlayer.src = videos[currentVideo]; // Actualiza la fuente del video
+            videoPlayer.play(); // Reproduce el video automáticamente
+        };
+
+        // Funcionalidad del botón "Atrás"
+        prevButton.onclick = function() {
+            currentVideo = (currentVideo - 1 + videos.length) % videos.length; // Cambia al video anterior
+            videoPlayer.src = videos[currentVideo]; // Actualiza la fuente del video
+            videoPlayer.play(); // Reproduce el video automáticamente
         };
     </script>
 </body>
