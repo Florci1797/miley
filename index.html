@@ -60,8 +60,7 @@
 </head>
 <body>
     <h1>Mi Lista de Reproducción de Videos</h1>
-    <video id="videoPlayer" width="640" height="360" controls autoplay>
-        <source src="https://www.dropbox.com/scl/fi/kfg62g26omknavwprei0c/Miley-Cyrus-Dooo-it-x-23-Lollapalooza-2022-argentina.mp4?rlkey=og349e7f3mfrzklnjmedn46nw&st=gilxpiwb&raw=1" type="video/mp4">
+    <video id="videoPlayer" width="640" height="360" controls>
         Tu navegador no soporta video.
     </video>
     
@@ -72,45 +71,59 @@
 
     <div class="song-index">
         <h2>Índice de Canciones</h2>
-        <div class="song-item" onclick="changeVideo(0)">1. Miley Cyrus - Dooo It! (Lollapalooza 2022 Argentina)</div>
-        <div class="song-item" onclick="changeVideo(1)">2. Mark Ronson & Miley Cyrus - No Tears Left to Cry (Ariana Grande Cover)</div>
-        <div class="song-item" onclick="changeVideo(2)">3. Miley Cyrus - Bang Bang x See You Again (Lollapalooza 2022 Argentina)</div>
+        <div class="song-item" data-index="0">1. Miley Cyrus - Dooo It! (Lollapalooza 2022 Argentina)</div>
+        <div class="song-item" data-index="1">2. Mark Ronson & Miley Cyrus - No Tears Left to Cry (Ariana Grande Cover)</div>
+        <div class="song-item" data-index="2">3. Miley Cyrus - Bang Bang x See You Again (Lollapalooza 2022 Argentina)</div>
     </div>
 
     <script>
         const videoPlayer = document.getElementById('videoPlayer');
-        const prevButton = document.getElementById('prevButton');
-        const nextButton = document.getElementById('nextButton');
-        const videos = [
-            'https://www.dropbox.com/scl/fi/kfg62g26omknavwprei0c/Miley-Cyrus-Dooo-it-x-23-Lollapalooza-2022-argentina.mp4?rlkey=og349e7f3mfrzklnjmedn46nw&st=gilxpiwb&raw=1',
-            'https://www.dropbox.com/scl/fi/gzow88v7cn1kblnqqtamq/Mark-Ronson-Miley-Cyrus-No-Tears-Left-To-Cry-Ariana-Grande-cover-in-the-Live-Lounge.mp4?rlkey=zfkdktmbj3bl8dy9jdd36n5n1&st=33llfo9y&raw=1',
-            'https://www.dropbox.com/scl/fi/4jbpxnja1qjnnw2x0wlq4/Miley-Cyrus-Bang-Bang-x-See-You-Again-Lollapalooza-2022-Argentina.mp4?raw=1'
-        ];
-        let currentVideo = 0;
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+    const songItems = document.querySelectorAll('.song-item');
+    const videos = [
+        'https://www.dropbox.com/scl/fi/kfg62g26omknavwprei0c/Miley-Cyrus-Dooo-it-x-23-Lollapalooza-2022-argentina.mp4?rlkey=og349e7f3mfrzklnjmedn46nw&raw=1',
+        'https://www.dropbox.com/scl/fi/6qojnbwmrrcizyhm4nbli/Mark-Ronson-Miley-Cyrus-No-Tears-Left-to-Cry-Ariana-Grande-Cover-in-the-Live-Lounge.mp4?rlkey=zb3w9hwbkx3x31uzviwtkqhw1&raw=1',
+        'https://www.dropbox.com/scl/fi/z86i36c7mlw9lmtzpjpyh/Miley-Cyrus-Bang-Bang-x-See-You-Again-Lollapalooza-2022-Argentina.mp4?rlkey=7h84ofh9xmwqgfqrxmfvjyv0w&raw=1'
+    ];
+    let currentVideoIndex = 0;
 
-        function changeVideo(index) {
-            currentVideo = index;
-            videoPlayer.src = videos[currentVideo];
-            videoPlayer.play();
+    function loadVideo(index) {
+        if (index >= 0 && index < videos.length) {
+            videoPlayer.src = videos[index];
+            currentVideoIndex = index;
+            videoPlayer.load();
+            videoPlayer.play().catch(e => console.log("Error al reproducir:", e));
+            updateActiveClass();
         }
+    }
 
-        function playNextVideo() {
-            currentVideo = (currentVideo + 1) % videos.length;
-            changeVideo(currentVideo);
-        }
+    function updateActiveClass() {
+        songItems.forEach((item, index) => {
+            if (index === currentVideoIndex) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
+    }
 
-        function playPreviousVideo() {
-            currentVideo = (currentVideo - 1 + videos.length) % videos.length;
-            changeVideo(currentVideo);
-        }
+    prevButton.addEventListener('click', () => {
+        loadVideo((currentVideoIndex - 1 + videos.length) % videos.length);
+    });
 
-        videoPlayer.onended = playNextVideo;
+    nextButton.addEventListener('click', () => {
+        loadVideo((currentVideoIndex + 1) % videos.length);
+    });
 
-        nextButton.addEventListener('click', playNextVideo);
-        prevButton.addEventListener('click', playPreviousVideo);
+    songItems.forEach((item, index) => {
+        item.addEventListener('click', () => loadVideo(index));
+    });
 
-        // Inicializar el primer video
-        changeVideo(0);
-    </script>
-</body>
-</html>
+    videoPlayer.addEventListener('ended', () => {
+        loadVideo((currentVideoIndex + 1) % videos.length);
+    });
+
+    // Cargar el primer video al iniciar
+    loadVideo(0);
+</script>
