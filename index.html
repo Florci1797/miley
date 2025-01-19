@@ -51,10 +51,10 @@
             display: block;
             margin-top: 5px;
             cursor: pointer;
-            color: #29b1d6; /* Color del texto del enlace */
+            color: #29b1d6; 
         }
         .song-item strong:hover {
-            text-decoration: underline; /* Subrayado al pasar el mouse */
+            text-decoration: underline; 
         }
     </style>
 </head>
@@ -146,26 +146,27 @@
 
 let currentVideo = 0;
 
-videoPlayer.onended = function() {
-    currentVideo = (currentVideo + 1) % videos.length; // Pasar al siguiente video
-    playVideo(currentVideo); // Llamar a la función para reproducir el video
-};
-
 // Función para cambiar el video y reproducirlo
 function playVideo(index) {
-    currentVideo = index; // Actualizar el índice del video actual
-    videoSource.src = videos[currentVideo]; // Cambiar la fuente del video
-    videoPlayer.load(); // Cargar el nuevo video
-    videoPlayer.play(); // Reproducir el nuevo video
+    currentVideo = index; // Actualiza el índice del video actual
+    videoSource.src = videos[currentVideo]; // Cambia la fuente del video
+    videoPlayer.load(); // Carga el nuevo video
+    videoPlayer.play(); // Reproduce el nuevo video
 }
+
+// Eventos para el final del video
+videoPlayer.onended = function() {
+    currentVideo = (currentVideo + 1) % videos.length; // Pasar al siguiente video
+    playVideo(currentVideo); // Llama a la función para reproducir el video
+};
 
 // Eventos de los botones "Atrás" y "Siguiente"
 prevButton.addEventListener('click', function() {
-    currentVideo = (currentVideo - 1 + videos.length) % videos.length; // Cambiar al video anterior
-    playVideo(currentVideo); // Reproducir el video seleccionado
+    currentVideo = (currentVideo - 1 + videos.length) % videos.length; // Cambia al video anterior
+    playVideo(currentVideo); // Llama a la función para reproducir el video
 });
 
 nextButton.addEventListener('click', function() {
-    currentVideo = (currentVideo + 1) % videos.length; // Cambiar al siguiente video
-    playVideo(currentVideo); // Reproducir el video seleccionado
+    currentVideo = (currentVideo + 1) % videos.length; // Cambia al siguiente video
+    playVideo(currentVideo); // Llama a la función para reproducir el video
 });
