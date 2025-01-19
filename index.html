@@ -16,6 +16,12 @@
             font-weight: bold;   /* Texto en negrita */
             border: none;        /* Sin borde */
             border-radius: 5px;  /* Bordes redondeados */
+            transition: background-color 0.3s; /* Efecto de transición al cambiar color */
+        }
+
+        /* Cambiar el color al pasar el mouse sobre el botón */
+        button:hover {
+            background-color: #24a5c1; /* Color más oscuro al pasar el ratón */
         }
     </style>
 </head>
@@ -48,19 +54,6 @@
             videoPlayer.play(); // Inicia la reproducción automáticamente
         };
 
-        // Funcionalidad del botón "Siguiente"
-        nextButton.onclick = function() {
-            currentVideo = (currentVideo + 1) % videos.length; // Cambia al siguiente video
-            videoPlayer.src = videos[currentVideo]; // Actualiza la fuente del video
-            videoPlayer.play(); // Reproduce el video automáticamente
-        };
-
-        // Funcionalidad del botón "Atrás"
-        prevButton.onclick = function() {
-            currentVideo = (currentVideo - 1 + videos.length) % videos.length; // Cambia al video anterior
-            videoPlayer.src = videos[currentVideo]; // Actualiza la fuente del video
-            videoPlayer.play(); // Reproduce el video automáticamente
-        };
     </script>
 </body>
 </html>
