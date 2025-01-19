@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Lista de Reproducción</title>
     <style>
-        /* Estilo para el cuerpo para establecer la imagen de fondo desde URL */
         body {
             background-image: url('https://st2.depositphotos.com/1054749/7007/i/450/depositphotos_70073867-stock-photo-clear-orange-and-blue-sunset.jpg');
             background-size: cover; 
@@ -20,13 +19,11 @@
             margin: 0;                  
         }
 
-        /* Estilo para el título y el índice */
         h1, h2 {
             text-align: center;          
             margin-bottom: 20px;        
         }
 
-        /* Estilo para los botones */
         button {
             padding: 10px 15px;  
             margin: 5px;         
@@ -44,21 +41,20 @@
             background-color: #24a5c1; 
         }
 
-        /* Estilo para el índice de canciones */
         .song-index {
             text-align: center;
-            margin-top: 20px; /* Espacio encima del índice */
+            margin-top: 20px;
         }
 
         .song-item {
             cursor: pointer;
-            color: #29b1d6;  /* Color del texto para los elementos del índice */
-            text-decoration: underline; /* Subrayado para los enlaces */
-            margin: 5px 0;   /* Espaciado entre las canciones */
+            color: #29b1d6;
+            text-decoration: underline;
+            margin: 5px 0;
         }
 
         .song-item:hover {
-            color: #24a5c1; /* Cambiar color al pasar el ratón */
+            color: #24a5c1;
         }
     </style>
 </head>
@@ -90,14 +86,31 @@
             'https://www.dropbox.com/scl/fi/gzow88v7cn1kblnqqtamq/Mark-Ronson-Miley-Cyrus-No-Tears-Left-To-Cry-Ariana-Grande-cover-in-the-Live-Lounge.mp4?rlkey=zfkdktmbj3bl8dy9jdd36n5n1&st=33llfo9y&raw=1',
             'https://www.dropbox.com/scl/fi/4jbpxnja1qjnnw2x0wlq4/Miley-Cyrus-Bang-Bang-x-See-You-Again-Lollapalooza-2022-Argentina.mp4?raw=1'
         ];
-        let currentVideo = 0; // Mantiene el índice del video actual
+        let currentVideo = 0;
 
-        videoPlayer.onended = function() {
-            currentVideo = (currentVideo + 1) % videos.length; // Aumenta el índice y utiliza el resto para reiniciar
-            videoPlayer.src = videos[currentVideo]; // Cambia la fuente al siguiente video
-            videoPlayer.play(); // Inicia la reproducción automáticamente
-        };
+        function changeVideo(index) {
+            currentVideo = index;
+            videoPlayer.src = videos[currentVideo];
+            videoPlayer.play();
+        }
 
+        function playNextVideo() {
+            currentVideo = (currentVideo + 1) % videos.length;
+            changeVideo(currentVideo);
+        }
+
+        function playPreviousVideo() {
+            currentVideo = (currentVideo - 1 + videos.length) % videos.length;
+            changeVideo(currentVideo);
+        }
+
+        videoPlayer.onended = playNextVideo;
+
+        nextButton.addEventListener('click', playNextVideo);
+        prevButton.addEventListener('click', playPreviousVideo);
+
+        // Inicializar el primer video
+        changeVideo(0);
     </script>
 </body>
 </html>
