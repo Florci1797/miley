@@ -45,16 +45,11 @@
         .song-item {
             margin: 10px 0;
             padding: 5px;
-            border-bottom: 1px solid #fff; 
+            border-bottom: 1px solid #fff; /* Línea para separar canciones */
         }
         .song-item strong {
             display: block;
             margin-top: 5px;
-            cursor: pointer;
-            color: #29b1d6; 
-        }
-        .song-item strong:hover {
-            text-decoration: underline; 
         }
     </style>
 </head>
@@ -73,17 +68,20 @@
     <div class="song-list">
         <h2>Índice de Canciones</h2>
         <div class="song-item">
-            <strong onclick="playVideo(0)">Zombie:</strong> Amo esta canción y me encanta la versión que hizo, cuando salió no paré de escucharla por semanas.
+            <strong>Zombie:</strong> Amo esta canción y me encanta la versión que hizo, cuando salió no paré de escucharla por semanas.
         </div>
         <div class="song-item">
-            <strong onclick="playVideo(1)">You:</strong> Es muy tierna, siempre me llega al ♡.
+            <strong>You:</strong> Es muy tierna, siempre me llega al ♡.
         </div>
         <div class="song-item">
-            <strong onclick="playVideo(2)">I'll Take Care Of You:</strong> Hay un live mejor que este? Otra canción hermosa y para mí superó a la original.
+            <strong>I'll Take Care Of You:</strong> Hay un live mejor que este? Otra canción hermosa y para mí superó a la original.
         </div>
         <div class="song-item">
-            <strong onclick="playVideo(3)">Never be me:</strong> La mejor versión de esta canción y en Argentina.
+            <strong>Never be me:</strong> La mejor versión de esta canción y en Argentina.
         </div>
+
+    
+        <!-- Puedes agregar más canciones y descripciones aquí -->
     </div>
 
     <script>
@@ -142,31 +140,29 @@
                 'https://www.dropbox.com/scl/fi/i47dw7gbo2z5n4uzhkzkb/Miley-Cyrus-Closes-The-Tonight-Show-with-The-Climb.mp4?rlkey=x9n2zrseqjms24xmmkpc2ck2l&st=qxiea105&raw=1'
         
 
-];
 
-let currentVideo = 0;
+                         ];
 
-// Función para cambiar el video y reproducirlo
-function playVideo(index) {
-    currentVideo = index; // Actualiza el índice del video actual
-    videoSource.src = videos[currentVideo]; // Cambia la fuente del video
-    videoPlayer.load(); // Carga el nuevo video
-    videoPlayer.play(); // Reproduce el nuevo video
-}
+        let currentVideo = 0;
 
-// Evento para el final del video
-videoPlayer.onended = function() {
-    currentVideo = (currentVideo + 1) % videos.length; // Pasar al siguiente video
-    playVideo(currentVideo); // Llama a la función para reproducir el video
-};
+        videoPlayer.onended = function() {
+            currentVideo = (currentVideo + 1) % videos.length;
+            videoPlayer.src = videos[currentVideo];
+            videoPlayer.play();
+        };
 
-// Eventos de los botones "Atrás" y "Siguiente"
-prevButton.addEventListener('click', function() {
-    currentVideo = (currentVideo - 1 + videos.length) % videos.length; // Cambia al video anterior
-    playVideo(currentVideo); // Llama a la función para reproducir el video
-});
+        prevButton.addEventListener('click', function() {
+            currentVideo = (currentVideo - 1 + videos.length) % videos.length; // Cambia al video anterior
+            videoPlayer.src = videos[currentVideo];
+            videoPlayer.play();
+        });
 
-nextButton.addEventListener('click', function() {
-    currentVideo = (currentVideo + 1) % videos.length; // Cambia al siguiente video
-    playVideo(currentVideo); // Llama a la función para reproducir el video
-});
+        nextButton.addEventListener('click', function() {
+            currentVideo = (currentVideo + 1) % videos.length; // Cambia al siguiente video
+            videoPlayer.src = videos[currentVideo];
+            videoPlayer.play();
+        });
+    </script>
+</body>
+</html>
+
