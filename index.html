@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE htm<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -12,36 +12,53 @@
             background-position: center; 
             background-repeat: no-repeat;
             color: white; 
-            display: flex;               /* Utiliza Flexbox */
-            flex-direction: column;      /* Alinea en columna */
-            align-items: center;         /* Centra los elementos horizontalmente */
-            justify-content: center;     /* Centra los elementos verticalmente */
-            height: 100vh;              /* Altura completa de la vista */
-            margin: 0;                  /* Eliminar márgenes por defecto */
+            display: flex;               
+            flex-direction: column;      
+            align-items: center;         
+            justify-content: center;     
+            height: 100vh;              
+            margin: 0;                  
         }
 
-        /* Estilo para el título */
-        h1 {
-            text-align: center;          /* Centra el texto */
-            margin-bottom: 20px;        /* Espacio debajo del título */
+        /* Estilo para el título y el índice */
+        h1, h2 {
+            text-align: center;          
+            margin-bottom: 20px;        
         }
 
         /* Estilo para los botones */
         button {
-            padding: 10px 15px;  /* Espacio interno */
-            margin: 5px;         /* Espacio entre botones */
-            font-size: 16px;     /* Tamaño de la fuente */
-            cursor: pointer;      /* Cambiar a puntero al pasar sobre el botón */
-            background-color: #29b1d6; /* Color de fondo */
-            color: #092364;      /* Color del texto */
-            font-weight: bold;   /* Texto en negrita */
-            border: none;        /* Sin borde */
-            border-radius: 5px;  /* Bordes redondeados */
-            transition: background-color 0.3s; /* Efecto de transición al cambiar color */
+            padding: 10px 15px;  
+            margin: 5px;         
+            font-size: 16px;     
+            cursor: pointer;      
+            background-color: #29b1d6; 
+            color: #092364;      
+            font-weight: bold;   
+            border: none;        
+            border-radius: 5px;  
+            transition: background-color 0.3s; 
         }
 
         button:hover {
-            background-color: #24a5c1; /* Color más oscuro al pasar el ratón */
+            background-color: #24a5c1; 
+        }
+
+        /* Estilo para el índice de canciones */
+        .song-index {
+            text-align: center;
+            margin-top: 20px; /* Espacio encima del índice */
+        }
+
+        .song-item {
+            cursor: pointer;
+            color: #29b1d6;  /* Color del texto para los elementos del índice */
+            text-decoration: underline; /* Subrayado para los enlaces */
+            margin: 5px 0;   /* Espaciado entre las canciones */
+        }
+
+        .song-item:hover {
+            color: #24a5c1; /* Cambiar color al pasar el ratón */
         }
     </style>
 </head>
@@ -53,8 +70,15 @@
     </video>
     
     <div>
-        <button id="prevButton">Atrás</button>  <!-- Botón atrás -->
-        <button id="nextButton">Siguiente</button> <!-- Botón siguiente -->
+        <button id="prevButton">Atrás</button>  
+        <button id="nextButton">Siguiente</button> 
+    </div>
+
+    <div class="song-index">
+        <h2>Índice de Canciones</h2>
+        <div class="song-item" onclick="changeVideo(0)">1. Miley Cyrus - Dooo It! (Lollapalooza 2022 Argentina)</div>
+        <div class="song-item" onclick="changeVideo(1)">2. Mark Ronson & Miley Cyrus - No Tears Left to Cry (Ariana Grande Cover)</div>
+        <div class="song-item" onclick="changeVideo(2)">3. Miley Cyrus - Bang Bang x See You Again (Lollapalooza 2022 Argentina)</div>
     </div>
 
     <script>
