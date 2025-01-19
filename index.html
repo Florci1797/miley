@@ -45,7 +45,7 @@
         .song-item {
             margin: 10px 0;
             padding: 5px;
-            border-bottom: 1px solid #fff; /* Línea para separar canciones */
+            border-bottom: 1px solid #fff;
         }
         .song-item strong {
             display: block;
@@ -84,7 +84,6 @@
         <div class="song-item">
             <strong onclick="playVideo(3)">Never be me:</strong> La mejor versión de esta canción y en Argentina.
         </div>
-        <!-- Agrega más canciones y descripciones aquí -->
     </div>
 
     <script>
@@ -143,31 +142,30 @@
                 'https://www.dropbox.com/scl/fi/i47dw7gbo2z5n4uzhkzkb/Miley-Cyrus-Closes-The-Tonight-Show-with-The-Climb.mp4?rlkey=x9n2zrseqjms24xmmkpc2ck2l&st=qxiea105&raw=1'
         
 
-
-                         ];
+];
 
 let currentVideo = 0;
 
 videoPlayer.onended = function() {
     currentVideo = (currentVideo + 1) % videos.length; // Pasar al siguiente video
-    playVideo(currentVideo); // Llamar a la función que reproduce el video
+    playVideo(currentVideo); // Llamar a la función para reproducir el video
 };
 
 // Función para cambiar el video y reproducirlo
 function playVideo(index) {
-    currentVideo = index;
-    videoSource.src = videos[currentVideo];
+    currentVideo = index; // Actualizar el índice del video actual
+    videoSource.src = videos[currentVideo]; // Cambiar la fuente del video
     videoPlayer.load(); // Cargar el nuevo video
     videoPlayer.play(); // Reproducir el nuevo video
 }
 
-// Eventos de los botones
+// Eventos de los botones "Atrás" y "Siguiente"
 prevButton.addEventListener('click', function() {
-    currentVideo = (currentVideo - 1 + videos.length) % videos.length; // Cambia al video anterior
-    playVideo(currentVideo);
+    currentVideo = (currentVideo - 1 + videos.length) % videos.length; // Cambiar al video anterior
+    playVideo(currentVideo); // Reproducir el video seleccionado
 });
 
 nextButton.addEventListener('click', function() {
-    currentVideo = (currentVideo + 1) % videos.length; // Cambia al siguiente video
-    playVideo(currentVideo);
+    currentVideo = (currentVideo + 1) % videos.length; // Cambiar al siguiente video
+    playVideo(currentVideo); // Reproducir el video seleccionado
 });
