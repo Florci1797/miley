@@ -37,19 +37,10 @@
         button:hover {
             background-color: #24a5c1; 
         }
-        .song-list {
+        .description {
             text-align: center;
             max-width: 600px;
             margin-top: 20px;
-        }
-        .song-item {
-            margin: 10px 0;
-            padding: 5px;
-            border-bottom: 1px solid #fff; /* Línea para separar canciones */
-        }
-        .song-item strong {
-            display: block;
-            margin-top: 5px;
         }
     </style>
 </head>
@@ -65,30 +56,15 @@
         <button id="nextButton">Siguiente</button>
     </div>
 
-    <div class="song-list">
-        <h2>Índice de Canciones</h2>
-        <div class="song-item">
-            <strong>Zombie:</strong> Amo esta canción y me encanta la versión que hizo, cuando salió no paré de escucharla por semanas.
-        </div>
-        <div class="song-item">
-            <strong>You:</strong> Es muy tierna, siempre me llega al ♡.
-        </div>
-        <div class="song-item">
-            <strong>I'll Take Care Of You:</strong> Hay un live mejor que este? Otra canción hermosa y para mí superó a la original.
-        </div>
-        <div class="song-item">
-            <strong>Never be me:</strong> La mejor versión de esta canción y en Argentina.
-        </div>
-
-    
-        <!-- Puedes agregar más canciones y descripciones aquí -->
+    <div class="description" id="videoDescription">
+        <!-- La descripción del video se mostrará aquí -->
     </div>
 
     <script>
         const videoPlayer = document.getElementById('videoPlayer');
-        const videoSource = document.getElementById('videoSource');
         const prevButton = document.getElementById('prevButton');
         const nextButton = document.getElementById('nextButton');
+        const videoDescription = document.getElementById('videoDescription');
 
         const videos = [
                 'https://www.dropbox.com/scl/fi/8vukwy2m94bt4078vlis3/Miley-Cyrus-Live-from-Whisky-a-Go-Go-Zombie-SOSFEST.mp4?rlkey=x6fwhwjpdwprfc8ub27drzno4&st=m4g037gc&raw=1',
@@ -141,27 +117,36 @@
         
 
 
-                         ];
+                        ];
+
+        const descriptions = [
+            'Zombie: Amo esta canción y me encanta la versión que hizo, cuando salió no paré de escucharla por semanas.',
+            'You: Es muy tierna, siempre me llega al ♡.',
+            // Agrega más descripciones correspondientes a los videos
+        ];
 
         let currentVideo = 0;
 
-        videoPlayer.onended = function() {
-            currentVideo = (currentVideo + 1) % videos.length;
-            videoPlayer.src = videos[currentVideo];
-            videoPlayer.play();
-        };
+function updateVideo() {
+    videoPlayer.src = videos[currentVideo]; // Cambia la fuente del video
+    videoPlayer.play(); // Reproduce el video
+    videoDescription.textContent = descriptions[currentVideo]; // Actualiza la descripción
+}
 
-        prevButton.addEventListener('click', function() {
-            currentVideo = (currentVideo - 1 + videos.length) % videos.length; // Cambia al video anterior
-            videoPlayer.src = videos[currentVideo];
-            videoPlayer.play();
-        });
+videoPlayer.onended = function() {
+    currentVideo = (currentVideo + 1) % videos.length; // Cambia al siguiente video
+    updateVideo(); // Actualiza el video y la descripción
+};
 
-        nextButton.addEventListener('click', function() {
-            currentVideo = (currentVideo + 1) % videos.length; // Cambia al siguiente video
-            videoPlayer.src = videos[currentVideo];
-            videoPlayer.play();
-        });
-    </script>
-</body>
-</html>
+prevButton.addEventListener('click', function() {
+    currentVideo = (currentVideo - 1 + videos.length) % videos.length; // Cambia al video anterior
+    updateVideo(); // Actualiza el video y la descripción
+});
+
+nextButton.addEventListener('click', function() {
+    currentVideo = (currentVideo + 1) % videos.length; // Cambia al siguiente video
+    updateVideo(); // Actualiza el video y la descripción
+});
+
+// Inicializa la descripción para el primer video
+updateVideo();
