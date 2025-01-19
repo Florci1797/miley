@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,43 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Lista de Reproducción</title>
     <style>
-        /* Estilo para el cuerpo para establecer la imagen de fondo desde URL */
+        /* Estilo para el cuerpo */
         body {
             background-image: url('https://st2.depositphotos.com/1054749/7007/i/450/depositphotos_70073867-stock-photo-clear-orange-and-blue-sunset.jpg');
             background-size: cover; 
             background-position: center; 
             background-repeat: no-repeat;
             color: white; 
-            display: flex;               /* Utiliza Flexbox */
-            flex-direction: column;      /* Alinea en columna */
-            align-items: center;         /* Centra los elementos horizontalmente */
-            justify-content: center;     /* Centra los elementos verticalmente */
-            height: 100vh;              /* Altura completa de la vista */
-            margin: 0;                  /* Eliminar márgenes por defecto */
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center; 
+            height: 100vh; 
+            margin: 0; 
         }
-
-        /* Estilo para el título */
         h1 {
-            text-align: center;          /* Centra el texto */
-            margin-bottom: 20px;        /* Espacio debajo del título */
+            text-align: center;          
+            margin-bottom: 20px;        
         }
-
-        /* Estilo para los botones */
         button {
-            padding: 10px 15px;  /* Espacio interno */
-            margin: 5px;         /* Espacio entre botones */
-            font-size: 16px;     /* Tamaño de la fuente */
-            cursor: pointer;      /* Cambiar a puntero al pasar sobre el botón */
-            background-color: #29b1d6; /* Color de fondo */
-            color: #092364;      /* Color del texto */
-            font-weight: bold;   /* Texto en negrita */
-            border: none;        /* Sin borde */
-            border-radius: 5px;  /* Bordes redondeados */
-            transition: background-color 0.3s; /* Efecto de transición al cambiar color */
+            padding: 10px 15px;  
+            margin: 5px;         
+            font-size: 16px;     
+            cursor: pointer;      
+            background-color: #29b1d6; 
+            color: #092364;      
+            font-weight: bold;   
+            border: none;        
+            border-radius: 5px;  
+            transition: background-color 0.3s; 
         }
-
         button:hover {
-            background-color: #24a5c1; /* Color más oscuro al pasar el ratón */
+            background-color: #24a5c1; 
         }
     </style>
 </head>
@@ -54,14 +48,15 @@
     </video>
     
     <div>
-        <button id="prevButton">Atrás</button>  <!-- Botón atrás -->
-        <button id="nextButton">Siguiente</button> <!-- Botón siguiente -->
+        <button id="prevButton">Atrás</button>
+        <button id="nextButton">Siguiente</button>
     </div>
 
     <script>
         const videoPlayer = document.getElementById('videoPlayer');
         const prevButton = document.getElementById('prevButton');
         const nextButton = document.getElementById('nextButton');
+
         const videos = [
                 'https://www.dropbox.com/scl/fi/8vukwy2m94bt4078vlis3/Miley-Cyrus-Live-from-Whisky-a-Go-Go-Zombie-SOSFEST.mp4?rlkey=x6fwhwjpdwprfc8ub27drzno4&st=m4g037gc&raw=1',
                 'https://www.dropbox.com/scl/fi/b05e62oy58jklvbue5o4k/You-live-on-Miley-s-New-Year-s-Eve-Party-Hosted-by-Miley-Cyrus-Pete-Davidson-on-NBC.mp4?rlkey=rzriizuinbyv53240z4bzij2c&st=spn0w8hb&raw=1',
@@ -114,11 +109,26 @@
 
 
                 ];
-                let currentVideo = 0; // Mantiene el índice del video actual
-        
-                videoPlayer.onended = function() {
-                    currentVideo = (currentVideo + 1) % videos.length; // Aumenta el índice y utiliza el resto para reiniciar
-                    videoPlayer.src = videos[currentVideo]; // Cambia la fuente al siguiente video
-                    videoPlayer.play(); // Inicia la reproducción automáticamente
-                };
-        
+
+        let currentVideo = 0;
+
+        videoPlayer.onended = function() {
+            currentVideo = (currentVideo + 1) % videos.length;
+            videoPlayer.src = videos[currentVideo];
+            videoPlayer.play();
+        };
+
+        prevButton.addEventListener('click', function() {
+            currentVideo = (currentVideo - 1 + videos.length) % videos.length; // Cambia al video anterior
+            videoPlayer.src = videos[currentVideo];
+            videoPlayer.play();
+        });
+
+        nextButton.addEventListener('click', function() {
+            currentVideo = (currentVideo + 1) % videos.length; // Cambia al siguiente video
+            videoPlayer.src = videos[currentVideo];
+            videoPlayer.play();
+        });
+    </script>
+</body>
+</html>
