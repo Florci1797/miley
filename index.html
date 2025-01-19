@@ -17,14 +17,14 @@
         const videos = [
             'https://www.dropbox.com/scl/fi/kfg62g26omknavwprei0c/Miley-Cyrus-Dooo-it-x-23-Lollapalooza-2022-argentina.mp4?rlkey=og349e7f3mfrzklnjmedn46nw&st=gilxpiwb&raw=1',
             'https://www.dropbox.com/scl/fi/gzow88v7cn1kblnqqtamq/Mark-Ronson-Miley-Cyrus-No-Tears-Left-To-Cry-Ariana-Grande-cover-in-the-Live-Lounge.mp4?rlkey=zfkdktmbj3bl8dy9jdd36n5n1&st=33llfo9y&raw=1',
-            'https://www.dropbox.com/scl/fi/4jbpxnja1qjnnw2x0wlq4/Miley-Cyrus-Bang-Bang-x-See-You-Again-Lollapalooza-2022-Argentina.mp4?raw=1' // Agrega más URLs según sea necesario
+            'https://www.dropbox.com/scl/fi/4jbpxnja1qjnnw2x0wlq4/Miley-Cyrus-Bang-Bang-x-See-You-Again-Lollapalooza-2022-Argentina.mp4?raw=1'
         ];
         let currentVideo = 0;
 
         videoPlayer.onended = function() {
-            currentVideo = (currentVideo + 1) % videos.length;
-            videoPlayer.src = videos[currentVideo];
-            videoPlayer.play();
+            currentVideo = (currentVideo + 1) % videos.length; // Aumenta el índice y utiliza el resto para reiniciar
+            videoPlayer.src = videos[currentVideo]; // Cambia la fuente al siguiente video
+            videoPlayer.play(); // Inicia la reproducción automáticamente
         };
     </script>
 </body>
