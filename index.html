@@ -141,30 +141,30 @@
             { url: 'https://www.dropbox.com/scl/fi/q91yi2nyjvm73qeqxy2qf/Miley-Cyrus-Flowers-Backyard-Sessions.mp4?rlkey=xmtc93amhxgl6alon9p9xug8a&st=h7y47cr8&raw=1', name: 'Flowers' },
             { url: 'https://www.dropbox.com/scl/fi/i47dw7gbo2z5n4uzhkzkb/Miley-Cyrus-Closes-The-Tonight-Show-with-The-Climb.mp4?rlkey=x9n2zrseqjms24xmmkpc2ck2l&st=qxiea105&raw=1', name: 'The Climb' }
         
-     ];
+    ];
 
         let currentVideo = 0;
 
-        // Cargar el primer video y su nombre
+        // Función para cargar el video y actualizar el nombre de la canción
         function loadVideo() {
             videoSource.src = videos[currentVideo].url;
             currentSong.textContent = videos[currentVideo].name;
             videoPlayer.load();
         }
 
-        // Cambiar el video cuando termine
+        // Cambiar el video automáticamente al terminar
         videoPlayer.onended = function() {
             currentVideo = (currentVideo + 1) % videos.length;
             loadVideo();
         };
 
-        // Cambiar al video anterior
+        // Cambia al video anterior
         prevButton.addEventListener('click', function() {
             currentVideo = (currentVideo - 1 + videos.length) % videos.length; // Cambia al video anterior
             loadVideo();
         });
 
-        // Cambiar al siguiente video
+        // Cambia al siguiente video
         nextButton.addEventListener('click', function() {
             currentVideo = (currentVideo + 1) % videos.length; // Cambia al siguiente video
             loadVideo();
@@ -173,6 +173,3 @@
         // Cargar el primer video al iniciar
         loadVideo();
     </script>
-</body>
-</html>
-
